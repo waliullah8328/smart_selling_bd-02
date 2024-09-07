@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import '../../profile/profile_screen.dart';
 import 'main_home_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -19,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
     MainHomeScreen(),
     Center(child: Text("Course Screen")),
     Center(child: Text("Wishlist Screen")),
-    Center(child: Text("Profile Screen")),
+    ProfileScreen()
   ];
   int indexID = 0;
   @override
@@ -108,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
         items: const [
 
           BottomNavigationBarItem(icon: Icon(Icons.home,color: Colors.blue,),label: "Home",backgroundColor: Colors.black),
-          BottomNavigationBarItem(icon: Icon(Icons.play_circle_outlined,color: Colors.blue,),label: "Course",backgroundColor: Colors.black),
+          BottomNavigationBarItem(icon: Icon(Icons.shop,color: Colors.blue,),label: "Shop",backgroundColor: Colors.black),
           BottomNavigationBarItem(icon: Icon(Icons.favorite,color: Colors.blue,),label: "Wishlist",backgroundColor: Colors.black),
           BottomNavigationBarItem(icon: Icon(Icons.person,color: Colors.blue,),label: "Profile",backgroundColor: Colors.black),
 
