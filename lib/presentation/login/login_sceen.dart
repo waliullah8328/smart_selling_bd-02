@@ -9,6 +9,7 @@ import 'package:smart_selling_bd/presentation/splash/splash_screen.dart';
 
 import '../../widgets/custom_password_text_field.dart';
 import '../../widgets/custom_text_field_wiget.dart';
+import '../home/view/home_screen.dart';
 import '../signUp/view/signUp_screen.dart';
 
 
@@ -33,6 +34,8 @@ class LoginScreen extends StatelessWidget {
 
               const Text("Welcome Back!",style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold),),
               const SizedBox(height: 20,),
+              
+
 
               const Text("Enter your email & password",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500),),
               const SizedBox(height: 20,),
@@ -52,7 +55,7 @@ class LoginScreen extends StatelessWidget {
 
                       onPressed: (){
                         if(controller.formKey.currentState!.validate()){
-                          Get.to(()=>const SplashScreen());
+                          Get.to(()=>const HomeScreen());
 
 
                         }

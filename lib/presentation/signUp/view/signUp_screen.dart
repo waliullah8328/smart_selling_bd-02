@@ -1,139 +1,122 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:smart_selling_bd/widgets/custom_password_text_field.dart';
+import 'package:smart_selling_bd/widgets/custom_text_field_wiget.dart';
 
 import '../../login/login_sceen.dart';
 import '../controller/sigup_controller.dart';
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
+  @override
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(SignUpController());
     return Scaffold(
-      body: Form(
-        key: controller.signUpFormKey,
-
-        child: Padding(
-          padding: const EdgeInsets.all(50),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(height: 60,),
-                Text("Fillup all Field to sign Up",style: TextStyle(fontSize: 19,fontWeight: FontWeight.bold),),
-                TextFormField(
-                  controller: controller.nameController,
-                  validator: (value){
-                    if(value!.isEmpty){
-                      return "Please Enter Your Name";
-
-                    }
-
-                  },
-                  keyboardType: TextInputType.name,
-                  decoration: InputDecoration(
-                    labelText: "Enter Name",
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Form(
+            key: controller.signUpFormKey,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 60,
                   ),
-                ),
-                TextFormField(
-                  controller: controller.emailController,
-                  validator: (value){
-                    if(value!.isEmpty){
-                      return "Please Enter Your Email";
-
-                    }
-
-                  },
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    labelText: "Enter Email",
+                  Text(
+                    "Fillup all Field to sign Up",
+                    style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
                   ),
-                ),
-                TextFormField(
-                  controller: controller.phoneController,
-                  validator: (value){
-                    if(value!.isEmpty){
-                      return "Please Enter Your Phone";
-
-                    }
-                    else if(value.length != 11){
-                      return "Enter 11 digit of number";
-                    }
-                    return null;
-
-                  },
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    labelText: "Enter Phone Number",
+                  SizedBox(
+                    height: 60,
                   ),
-                ),
-
-                TextFormField(
-                  controller: controller.passwordController,
-                  validator: (value){
-                    if(value!.isEmpty){
-                      return "Please Enter Your Password";
-
-                    }
-
-                  },
-                  obscureText: true,
-                  keyboardType: TextInputType.name,
-                  decoration: InputDecoration(
-
-                      labelText: "Enter Password",
-                      suffix: Icon(Icons.visibility_off)
+                  CustomTextFormField(
+                      hintText: "Enter name",
+                      validatorText: "Please enter your name",
+                      controller: controller.nameController),
+                  SizedBox(
+                    height: 7,
                   ),
-                ),
-                TextFormField(
-                  controller: controller.confirmController,
-
-                  validator: (value){
-                    if(value!.isEmpty){
-                      return "Please Enter Your Password";
-
-                    }
-
-                  },
-                  obscureText: true,
-                  keyboardType: TextInputType.name,
-                  decoration: InputDecoration(
-
-                      labelText: "Confirm Password",
-                      suffix: Icon(Icons.visibility_off)
+                  CustomTextFormField(
+                      hintText: "Enter email",
+                      validatorText: "Please enter your email",
+                      controller: controller.emailController),
+                  SizedBox(
+                    height: 7,
                   ),
-                ),
-                SizedBox(height: 50,),
+                  CustomTextFormField(
+                      hintText: "Enter phone number",
+                      validatorText: "Please enter your phone number",
+                      controller: controller.phoneController),
+                  SizedBox(
+                    height: 7,
+                  ),
+                  CustomPaswordTextField(
+                      labelText: "Enter password",
+                      controller: controller.passwordController),
+                  SizedBox(
+                    height: 7,
+                  ),
+                  CustomPaswordTextField(
+                      labelText: "Enter confirm password",
+                      controller: controller.confirmController),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  SizedBox(
+                      height: 35,
+                      width: double.infinity,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            if(controller.signUpFormKey.currentState!.validate()){
+                              if(controller.passwordController.text == controller.confirmController.text){
+                                debugPrint("Submitted successfully");
+                                Get.snackbar("Success", "Submitted successfully");
+                              }
+                              else{
+                                debugPrint("Password and confirm password doesn't match");
+                                Get.snackbar("Error", "Password and confirm password doesn't match");
+                              }
 
-                SizedBox(
-                    height: 35,
-                    width: double.infinity,
-                    child: ElevatedButton(onPressed: (){
-                      if(controller.signUpFormKey.currentState!.validate()){
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Submitted Successfully")));
-
-                      }
-                    }, child: Text("Submit"))),
-                SizedBox(height: 50,),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("Alread have account?"),
-                    SizedBox(width: 10,),
-                    InkWell(
-                        onTap: (){
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Going to Login Page")));
-                          Navigator.push(context, MaterialPageRoute(builder: (context) =>  LoginScreen(),));
-
-                        },
-                        child: Text("Login Now",style: TextStyle(color: Colors.blue),))
-                  ],
-                )
-
-              ],
+                            }
+        
+                          },
+                          child: Text("Submit"))),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Alread have account?"),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      InkWell(
+                          onTap: () {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text("Going to Login Page")));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => LoginScreen(),
+                                ));
+                          },
+                          child: Text(
+                            "Login Now",
+                            style: TextStyle(color: Colors.blue),
+                          ))
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ),

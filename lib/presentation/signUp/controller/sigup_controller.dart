@@ -15,6 +15,22 @@ class SignUpController extends GetxController{
 
 
   // Function
+signUp(){
+  if(signUpFormKey.currentState!.validate()){
+    /*
+    if(passwordController.value == confirmController.value){
+      Get.snackbar("Success", "Submitted successfully");
+
+    }
+    else{
+      Get.snackbar("Error", "Password and confirm password doesn't match");
+    }
+
+     */
+
+
+  }
+}
 
 
 
